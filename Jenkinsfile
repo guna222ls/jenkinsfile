@@ -74,9 +74,17 @@ pipeline {
                 }
             }
         }*/
-        
-        
-        
-        
-    }
-    }
+
+stage ('Deploy Artifacts'){
+	steps{
+withMaven(globalMavenSettingsConfig: 'settings.xml', jdk: 'jdk21', maven: 'maven3', mavenSettingsConfig: '', traceability: true) {
+
+	sh 'mvn deploy'
+}
+			    
+}
+		    
+   }
+
+ }
+}
