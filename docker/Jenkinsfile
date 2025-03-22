@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                // Clone the Git repository
+                git url: 'https://github.com/guna222ls/Petclinic.git', branch: 'main'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    // Use the Docker container for the build process
+                    docker.image('maven:3.8.4-jdk-11').inside('--rm') {
+                        sh 'mvn clean package'
+                    }
+                }
+            }
+        }
+    }
+}
